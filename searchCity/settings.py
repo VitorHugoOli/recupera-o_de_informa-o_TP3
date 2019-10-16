@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'treatmentFile'
 ]
 
 MIDDLEWARE = [
@@ -76,8 +78,12 @@ WSGI_APPLICATION = 'searchCity.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'djongo',
+        'NAME':'tpGradi',
+        'HOST':'mongodb+srv://user:1234@cluster0-tdt2p.mongodb.net/tpGradi',
+        'USER':'user',
+        'PASSOWORD':'1234'
+        #mongodb+srv://user:<password>@cluster0-tdt2p.mongodb.net/test?retryWrites=true&w=majority
     }
 }
 
