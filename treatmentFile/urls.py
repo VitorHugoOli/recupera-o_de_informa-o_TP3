@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', LerPDF.as_view(), name='lerPDF'),
+    path('uploadFile', insertText.as_view(), name='uploadFile'),
+    path('search',search.as_view(),name='search ')
 
 ]

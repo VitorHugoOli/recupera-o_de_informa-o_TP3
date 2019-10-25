@@ -1,13 +1,16 @@
 import nltk
 import string
+
+from treatmentFile.models.models import Texto, indexInv, DictWord
+
 nltk.download('stopwords')
 nltk.download('punkt')
 
 class InvertedIndex:
     def __init__(self):
-        self.indexInv = {}
-        self.raiz = []
-    
+        self.dictRepTexo = {}
+        # self.raiz = []
+
     def __preprocess__(self, message, lang):
         stop_words = nltk.corpus.stopwords.words(lang)
         stemmer = nltk.stem.PorterStemmer()
@@ -19,35 +22,62 @@ class InvertedIndex:
         tokens = [token for token in tokens if token not in stop_words]
         tokens = [stemmer.stem(token) for token in tokens]
         return tokens
-    
-    def insert(self, doc):
-        if doc not in self.raiz:
-            self.parse(len(self.raiz),doc)
-            self.raiz.append(doc)
-            return True
-        else:
+
+    def insert(self, doc,title):
+        # if doc not in self.raiz:
+        if Texto.objects.filter(texto=doc).exists():
             print("Texto já foi inserido anteriomente")
-            return False
-    
+            return Exception.args("Texto já foi inserido anteriomente")
+        else:
+            id = Texto.objects.create(texto=doc, titulo=title)
+            self.parse(id.id, doc)
+            return True
+
     def parse(self, idoc, doc):
         words = self.__preprocess__(doc, 'portuguese')
+        indexinvertido = indexInv.objects.filter()
+
+        #Carregando lista de palavras já existentes no banco para otimização da função
+        wordsBD = []
+        for i in indexinvertido:
+            wordsBD.append(i.word)
+        print(wordsBD)
+        print("Step 1 - Create dynamic wordBD")
+
         for w in words:
-            if w in self.indexInv:
-                if idoc in self.indexInv[w]:
-                    self.indexInv[w][idoc] = self.indexInv[w][idoc] + 1
+
+            if w in wordsBD:
+                indexinvertido = indexInv.objects.get(word=w)
+
+                if DictWord.objects.filter(indexInv=indexinvertido, idTexto=idoc).exists():
+                    dicionario = DictWord.objects.get(indexInv=indexinvertido, idTexto=idoc)
+                    dicionario.repeticoes= dicionario.repeticoes + 1
+                    dicionario.save()
+
                 else:
-                    self.indexInv[w][idoc] = 1
-                    
+                    DictWord.objects.create(indexInv=indexinvertido, idTexto=idoc, repeticoes=1)
+
             else:
-                self.indexInv[w] = {}
-                self.indexInv[w][idoc] = 1
-                
+                index = indexInv.objects.create(word=w)
+                wordsBD.append(w)
+                DictWord.objects.create(indexInv=index, idTexto=idoc, repeticoes=1)
+
+        print("Step 2 - All words were inclued")
+
+
+
     def search(self, word):
-        if word in self.indexInv:
-            return self. indexInv[word]
+        # if word in self.indexInv:
+        if indexInv.objects.filter(word=word).exists():
+            dicTextRepetition = {}
+            palavra = indexInv.objects.get(word=word)
+            dicPalavras = DictWord.objects.filter(indexInv=palavra)
+            for i in dicPalavras:
+                dicTextRepetition[i.idTexto] = i.repeticoes
+            return dicTextRepetition
         else:
             return []
-    
+
     def multisearch(self, phrase, sortedByRelevance=True):
         words = self.__preprocess__(phrase, 'portuguese')
         for i in range(len(words)):
@@ -71,7 +101,7 @@ class InvertedIndex:
         if sortedByRelevance == True:
             return sortedByRel, relevance
         else: return group, relevance
-    
+
     def __relevancecalc__(self, dic):
         rel = {}
         for d in dic:
@@ -79,21 +109,24 @@ class InvertedIndex:
             if type(dic[d]) is list:
                 for i in range(len(dic[d])):
                     calc = calc + pow(dic[d][i], len(dic[d])-i)
-                calc = pow(calc, 1/len(dic[d]))   
-                
+                calc = pow(calc, 1/len(dic[d]))
+
             else:
                 calc = dic[d]
             rel[d] = calc
         return rel
-    
+
     def __sortedByRelevance__(self, group, relevance):
         sortedDic = {}
         for item in sorted(group, key = relevance.get, reverse=True):
             sortedDic[item] = group[item]
         return sortedDic
-    
-    def printd(self):
-        print(self.indexInv)
+
+    # def printd(self):
+    #     print(self.indexInv)
+
+    def retornaText(self,i):
+        return Texto.objects.get(id=i)
     
     
 '''
