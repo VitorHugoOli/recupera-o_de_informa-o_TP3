@@ -1,24 +1,38 @@
 import React from 'react';
-
 import './App.css';
+
+import logo from './assets/logo.png';
+import search from './assets/search.png';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <div className="upload">
+      <button type="button">
+        Fazer Upload
+      </button>
     </div>
+    <div className="container">
+      
+      <img src={logo} alt="Search City"/>
+      <div className="content">
+        
+        
+        <div className="search">
+          <input type="text" id="searchtext" placeholder="Faça sua busca aqui"/>
+          <button type="submit" className="search">
+             <img src={search} alt="Search City"/>
+          </button>
+        </div>
+
+        <p>
+          Com o <strong>SearchCity</strong> você pode encontrar características de uma determinada cidade, abaixo você pode começar sua pesquisa digitando um termo de busca.
+        </p>
+      </div>
+
+    </div>
+    </>
+
   );
 }
 
