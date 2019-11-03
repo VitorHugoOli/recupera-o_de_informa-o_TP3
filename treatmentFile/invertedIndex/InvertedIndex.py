@@ -2,6 +2,7 @@ import nltk
 import string
 
 from treatmentFile.models.models import Texto, indexInv, DictWord
+from django.core.exceptions import ObjectDoesNotExist
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -23,13 +24,13 @@ class InvertedIndex:
         tokens = [stemmer.stem(token) for token in tokens]
         return tokens
 
-    def insert(self, doc,title):
+    def insert(self, doc,title,docfile):
         # if doc not in self.raiz:
         if Texto.objects.filter(texto=doc).exists():
             print("Texto já foi inserido anteriomente")
-            return Exception.args("Texto já foi inserido anteriomente")
+            Exception
         else:
-            id = Texto.objects.create(texto=doc, titulo=title)
+            id = Texto.objects.create(texto=doc, titulo=title,docfile= docfile)
             self.parse(id.id, doc)
             return True
 
@@ -43,23 +44,25 @@ class InvertedIndex:
             wordsBD.append(i.word)
         print(wordsBD)
         print("Step 1 - Create dynamic wordBD")
+        print("Qunatidades de plaavras: " + str(len(words)))
+        print(words)
 
         for w in words:
-
-            if w in wordsBD:
+            try:
                 indexinvertido = indexInv.objects.get(word=w)
 
-                if DictWord.objects.filter(indexInv=indexinvertido, idTexto=idoc).exists():
+                try:
                     dicionario = DictWord.objects.get(indexInv=indexinvertido, idTexto=idoc)
                     dicionario.repeticoes= dicionario.repeticoes + 1
                     dicionario.save()
 
-                else:
+                except ObjectDoesNotExist:
                     DictWord.objects.create(indexInv=indexinvertido, idTexto=idoc, repeticoes=1)
 
-            else:
+
+            except ObjectDoesNotExist:
                 index = indexInv.objects.create(word=w)
-                wordsBD.append(w)
+
                 DictWord.objects.create(indexInv=index, idTexto=idoc, repeticoes=1)
 
         print("Step 2 - All words were inclued")

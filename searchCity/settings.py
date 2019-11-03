@@ -26,7 +26,7 @@ SECRET_KEY = 's&(@&x)!m2y!ulpzq_@kjps1^z3h7&r+p)68p1sc^kh6=d=+q+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['search-city.herokuapp.com']
+ALLOWED_HOSTS = ['search-city.herokuapp.com','127.0.0.1']
 
 
 # Application definition

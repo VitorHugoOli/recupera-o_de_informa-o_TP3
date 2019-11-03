@@ -2,8 +2,9 @@ import sys
 
 # Create your views here.
 
+
 from .invertedIndex.InvertedIndex import *
-from treatmentFile.leituraPDF.readPDF import leituraPDF
+from treatmentFile.leituraPDF.readPDF import pdf_to_txt
 from treatmentFile.models.models import Texto
 from .controlador.Requisicoes import *
 from .controlador.Respostas import *
@@ -18,8 +19,10 @@ class insertText(Requisicao):
     def post(self, request):
         try:
             title = str(request.data['file'])
-            texto = leituraPDF(request.data['file'])
-            index.insert(texto,title)
+            texto = pdf_to_txt(request.data['file'])
+            print(texto)
+            print("\tstep 0")
+            index.insert(texto,title,request.data['file'])
             return Response({'Status': True, 'Texto Adicionada': title})
 
         except Exception:
