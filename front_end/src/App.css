@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin|Oswald&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: 0;
+}
+
+html, body, #root{
+  min-height: 100%;
+}
+
+body{
+
+  background-image: linear-gradient(to bottom, #0470dc, #13f1fc);
+  /*background: #FFF url('./assets/background1.png') no-repeat;*/
+  background-size: cover;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+body, input, button{
+  font-family: 'Cabin', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.container{
+  margin: 80px auto 0;
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload{
+  display: flex;
+  flex-direction: row-reverse;
+  max-width: 1366px;
+  width: 100%;
+  margin: 10px auto 0;
+}
+.upload > button{
+  margin-right: 5px;
+  max-width: 100px;
+  width: 100%;
+  background: #FFF;
+  border: 1px solid #13f1fc;
+  border-radius: 20px;
+  padding: 3px 8px;
+
+}
+
+.container > img{
+  max-width: 400px;
+}
+
+.content{
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.content > p{
+  margin-top: 30px;
+  text-align: center;
+  color: #FFF;
+  font-size: 15px;
+}
+
+.content div.search{
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  height: 30px;;
+  max-height: 30px;
+}
+
+.content div.search button{
+  height: 100%;
+  background: #0470dc;
+  border: 1px solid #DDD;
+  border-radius: 20px;
+  padding: 6px 17px;
+  margin-left: -50px;
+}
+
+.content div.search button:hover{
+  opacity: 0.8;
+}
+
+.content div.search button img{
+  height: 100%;
+}
+
+
+
+
+
+.content div.search input{
+  border: 1px solid #DDD;
+  border-radius: 20px;
+  height: 100%;
+  width: 250px;
+  padding: 0 15px;
+}
