@@ -33,10 +33,10 @@ class InvertedIndex:
             return False
         else:
             id = Texto.objects.create(texto=doc, titulo=title)
-            self.parse(id.id, doc)
+            self.parse(id.id, doc,title)
             return True
 
-    def parse(self, idoc, doc):
+    def parse(self, idoc, doc,title):
         words = self.__preprocess__(doc, 'portuguese')
         # indexinvertido = indexInv.objects.filter()
         #Carregando lista de palavras já existentes no banco para otimização da função
@@ -47,6 +47,7 @@ class InvertedIndex:
 
         print("Step 1 - Create dynamic wordBD")
         print("Amounts of words: " + str(len(words)))
+        words.append(title.split(".")[0])
         print(words)
         print("------Start Time: " + str(datetime.datetime.now().time()))
 
