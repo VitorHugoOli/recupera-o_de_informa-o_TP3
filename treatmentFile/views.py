@@ -32,9 +32,9 @@ class insertText(Requisicao):
 
 
 class search(Requisicao):
-    def get(self, request):
+    def post(self, request):
         try:
-            print(request)
+            print(request.data)
             search = request.data["search"]
             if search.find(" ") > 0:
                 print("multisearch")

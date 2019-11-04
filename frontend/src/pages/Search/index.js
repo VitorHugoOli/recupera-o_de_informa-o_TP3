@@ -9,7 +9,7 @@ export default function Search({history}){
 
     async function handleSubmit(){
 
-        const result = await api.get('/search',{data:{"search":"belo"}})
+        const result = await api.post('/search',{search:"belo"})
 
         console.log(result)
 
