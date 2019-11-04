@@ -7,11 +7,9 @@ import search from '../../assets/search.png';
 export default function Search({history}){
     const [termo, setTermo] = useState('');
 
-    async function handleSubmit(){
-        
-        const response = await api.get('/search/'+termo)
-        console.log(response.data)
-
+    async function handleSubmit(event){
+        event.preventDefault();
+        localStorage.setItem('searchterm', termo);
         history.push('/results');
     }
 

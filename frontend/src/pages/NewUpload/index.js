@@ -30,15 +30,7 @@ export default function NewUpload({history}){
 
     return (
         <form onSubmit={handleSubmit} className="upload">
-            <label htmlFor="company"> Título *</label>
             
-            <input 
-                type="text" 
-                id="title" 
-                placeholder="Qual o título do texto?"
-                value={title}
-                onChange={event => setTitle(event.target.value)}
-            />
             <label 
                 id="thumbnail"
                 className={file ? 'has-file' : ''}

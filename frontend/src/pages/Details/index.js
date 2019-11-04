@@ -9,12 +9,12 @@ export default function Details(){
 
     useEffect(() => {
         async function loadDetails(){
-            const response = await api.get('./search', {
-                
-            });
+            const textoid = localStorage.getItem('textoid')
+            const response = await api.get('./texto/'+textoid);
             console.log(response.data)
             setDetail(response.data);
-        }    
+        }
+        loadDetails();  
     }, [])
 
     return (
