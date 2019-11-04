@@ -33,6 +33,7 @@ class InvertedIndex:
             return False
         else:
             id = Texto.objects.create(texto=doc, titulo=title)
+            doc = doc +" "+ title.split(".")[0]
             self.parse(id.id, doc)
             return True
 
