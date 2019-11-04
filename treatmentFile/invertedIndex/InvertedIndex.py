@@ -34,7 +34,7 @@ class InvertedIndex:
         else:
             id = Texto.objects.create(texto=doc, titulo=title)
             doc = doc +" "+ title.split(".")[0]
-            self.parse(id.id, doc,title)
+            self.parse(id.id, doc)
             return True
 
     def parse(self, idoc, doc):
