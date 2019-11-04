@@ -1,1 +1,1 @@
-web: gunicorn searchCity.wsgi --timeout 600 --keep-alive 5 --log-level debug --log-file -
+web: gunicorn searchCity.wsgi --timeout 1800 --keep-alive 5 --log-level debug --log-file -
