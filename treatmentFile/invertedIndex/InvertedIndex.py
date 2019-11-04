@@ -30,7 +30,7 @@ class InvertedIndex:
         # if doc not in self.raiz:
         if Texto.objects.filter(texto=doc).exists():
             print("Texto já foi inserido anteriomente")
-            Exception
+            return False
         else:
             id = Texto.objects.create(texto=doc, titulo=title)
             self.parse(id.id, doc)
@@ -65,7 +65,6 @@ class InvertedIndex:
 
             except ObjectDoesNotExist:
                 index = indexInv.objects.create(word=w)
-
                 DictWord.objects.create(indexInv=index, idTexto=idoc, repeticoes=1)
 
         print("------End Time: " + str(datetime.datetime.now().time()))
