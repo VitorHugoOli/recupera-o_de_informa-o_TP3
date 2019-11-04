@@ -1,0 +1,10 @@
+div.filedetail{
+    background-color: #FFF;
+    padding: 2% 5%;
+    width: 100%;
+    
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
