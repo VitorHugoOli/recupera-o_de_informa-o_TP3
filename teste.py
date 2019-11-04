@@ -1,4 +1,2 @@
-import json
-s = {0: 7}
+import datetime
 
-print(str(json.dumps(json.dumps(s))))
