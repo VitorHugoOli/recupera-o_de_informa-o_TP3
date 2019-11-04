@@ -1,0 +1,38 @@
+form.upload input{
+    margin: 10px;
+    border: 1px solid #DDD;
+    border-radius: 20px;
+    height: 100%;
+    width: 250px;
+    padding: 0 15px;
+  }
+
+  form.upload{
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  label#thumbnail{
+      margin-bottom: 20px;
+      border: 1px dashed #ddd;
+      background-size: cover;
+      cursor: pointer;
+      height: 160px;
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  label#thumbnail input{
+    display: none;
+  }
+
+  label#thumbnail img{
+    height: 50px;
+  }
