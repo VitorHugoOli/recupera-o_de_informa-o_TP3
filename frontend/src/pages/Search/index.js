@@ -10,16 +10,9 @@ export default function Search({history}){
     const [termo, setTermo] = useState('');
 
     async function handleSubmit(){
-<<<<<<< HEAD
         
-        const response = await api.get('/search', { headers: {termo}})
-        console.log(response)
-=======
-
-        const result = await axios.post('http://127.0.0.1:8000/search',{"teste":"teste"})
-
-        console.log(result)
->>>>>>> e4fa6927fac2494d73c269ad025d2172cc909696
+        const response = await api.get('/search/'+termo)
+        console.log(response.data)
 
         history.push('/results');
     }

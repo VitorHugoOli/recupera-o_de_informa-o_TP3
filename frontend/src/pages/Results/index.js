@@ -10,9 +10,7 @@ export default function Results(){
 
     useEffect(() => {
         async function loadResults(){
-            const response = await api.get('./search', {
-                
-            });
+            const response = await api.get('./texto/1');
             console.log(response.data)
             setResults(response.data);
         }    
@@ -21,20 +19,17 @@ export default function Results(){
     return (
         <>
             <ul className="result-list">
-                <Link to="/details">
-                <li>
-                    <strong>Um título qualquer</strong>
-                    <span>Relevância: 3.0000</span>
-                </li>
-                </Link>
-                <li>
-                    <strong>Um título qualquer</strong>
-                    <span>3.0000</span>
-                </li>
-                <li>
-                    <strong>Um título qualquer</strong>
-                    <span>3.0000</span>
-                </li>
+                
+                
+                {results.map(result => (
+                    <Link to="/details">
+                        <li key={result._id}>
+                            <strong>{result.Titulo}</strong>
+                            <span>Relevância: {result.Texto}</span>
+
+                        </li>
+                    </Link>
+                ))}
                 
             </ul>
         </>

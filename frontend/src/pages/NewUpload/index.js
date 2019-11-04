@@ -19,15 +19,10 @@ export default function NewUpload({history}){
 
     async function handleSubmit(event){
         event.preventDefault();
-        const data = new FormData();
+        const data = new FormData();       
+    
+        data.append('file', file);
         
-        
-       
-        data.append('title,', title);
-        data.append('file,', file);
-        
-        console.log(title)
-        console.log(file)
         await api.post('/uploadFile', data);
 
         history.push('/')
