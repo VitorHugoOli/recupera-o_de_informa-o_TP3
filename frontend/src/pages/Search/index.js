@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import axios from 'axios';
 import api from '../../services/api'
 
 
 import search from '../../assets/search.png';
-
 
 export default function Search({history}){
     const [termo, setTermo] = useState('');
