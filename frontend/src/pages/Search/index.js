@@ -8,13 +8,9 @@ export default function Search({history}){
     const [termo, setTermo] = useState('');
 
     async function handleSubmit(){
-        console.log("A");
-        const termoAux = [{
-            "search": {termo}
-        }]
-        const result = await api.get('/search', (req, res) => {
-            res.json(termoAux)
-          });
+
+        const result = await api.get('/search',{data:{"search":"belo"}})
+
         console.log(result)
 
         history.push('/results');

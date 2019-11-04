@@ -34,6 +34,7 @@ class insertText(Requisicao):
 class search(Requisicao):
     def get(self, request):
         try:
+            print(request)
             search = request.data["search"]
             if search.find(" ") > 0:
                 print("multisearch")
