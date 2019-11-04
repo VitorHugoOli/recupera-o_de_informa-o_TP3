@@ -33,7 +33,6 @@ class insertText(Requisicao):
 
 
 class search(Requisicao):
-
     def get(self, request):
         try:
             search = request.data["search"]
@@ -50,10 +49,7 @@ class search(Requisicao):
             return Response({'Status': False, 'Search': search,'Erro':str(sys.exc_info()[1])})
 
 class texto(Requisicao):
-    queryset = Texto.objects.all()
-
-
-    def post(self, request):
+    def get(self, request):
         try:
             id = int(request.data['id'])
             texto = Texto.objects.get(id=id)
