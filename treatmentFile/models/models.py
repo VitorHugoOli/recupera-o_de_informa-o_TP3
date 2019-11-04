@@ -6,7 +6,6 @@ from djongo import models
 class Texto(models.Model):
     titulo = models.CharField(max_length=200)
     texto = models.CharField(max_length=1000000)
-    docfile = models.FileField(upload_to='documents')
 
     def __str__(self):
         return self.titulo

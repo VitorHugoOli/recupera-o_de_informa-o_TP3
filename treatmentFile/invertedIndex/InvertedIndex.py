@@ -1,3 +1,5 @@
+import datetime
+
 import nltk
 import string
 
@@ -24,28 +26,29 @@ class InvertedIndex:
         tokens = [stemmer.stem(token) for token in tokens]
         return tokens
 
-    def insert(self, doc,title,docfile):
+    def insert(self, doc,title):
         # if doc not in self.raiz:
         if Texto.objects.filter(texto=doc).exists():
             print("Texto já foi inserido anteriomente")
             Exception
         else:
-            id = Texto.objects.create(texto=doc, titulo=title,docfile= docfile)
+            id = Texto.objects.create(texto=doc, titulo=title)
             self.parse(id.id, doc)
             return True
 
     def parse(self, idoc, doc):
         words = self.__preprocess__(doc, 'portuguese')
-        indexinvertido = indexInv.objects.filter()
-
+        # indexinvertido = indexInv.objects.filter()
         #Carregando lista de palavras já existentes no banco para otimização da função
-        wordsBD = []
-        for i in indexinvertido:
-            wordsBD.append(i.word)
-        print(wordsBD)
+        # wordsBD = []
+        # for i in indexinvertido:
+        #     wordsBD.append(i.word)
+        # print(wordsBD)
+
         print("Step 1 - Create dynamic wordBD")
-        print("Qunatidades de plaavras: " + str(len(words)))
+        print("Amounts of words: " + str(len(words)))
         print(words)
+        print("------Start Time: " + str(datetime.datetime.now().time()))
 
         for w in words:
             try:
@@ -65,9 +68,8 @@ class InvertedIndex:
 
                 DictWord.objects.create(indexInv=index, idTexto=idoc, repeticoes=1)
 
-        print("Step 2 - All words were inclued")
-
-
+        print("------End Time: " + str(datetime.datetime.now().time()))
+        print("\nStep 2 - All words were inclued")
 
     def search(self, word):
         # if word in self.indexInv:

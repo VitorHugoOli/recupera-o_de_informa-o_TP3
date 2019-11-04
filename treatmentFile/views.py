@@ -22,7 +22,7 @@ class insertText(Requisicao):
             texto = pdf_to_txt(request.data['file'])
             print(texto)
             print("\tstep 0")
-            index.insert(texto,title,request.data['file'])
+            index.insert(texto,title)
             return Response({'Status': True, 'Texto Adicionada': title})
 
         except Exception:
@@ -48,3 +48,17 @@ class search(Requisicao):
             return Respostas({"Status":"Algo do além está fazendo interferencias"})
         except:
             return Response({'Status': False, 'Search': search,'Erro':str(sys.exc_info()[1])})
+
+class texto(Requisicao):
+    queryset = Texto.objects.all()
+
+
+    def post(self, request):
+        try:
+            id = int(request.data['id'])
+            texto = Texto.objects.get(id=id)
+            return Response({'Status': True, 'Titulo': texto.titulo, 'Texto':texto.texto})
+
+        except Exception:
+            return Response(
+                {'Status': False, 'Erro':str(sys.exc_info()[1])})
