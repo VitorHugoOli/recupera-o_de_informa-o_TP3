@@ -32,10 +32,9 @@ class insertText(Requisicao):
 
 
 class search(Requisicao):
-    def post(self, request):
+    def get(self, request,search):
         try:
-            print(request.data)
-            search = request.data["search"]
+            search = search
             if search.find(" ") > 0:
                 print("multisearch")
                 group, relevance = index.multisearch(search)
@@ -49,9 +48,9 @@ class search(Requisicao):
             return Response({'Status': False, 'Search': search,'Erro':str(sys.exc_info()[1])})
 
 class texto(Requisicao):
-    def get(self, request):
+    def get(self, request,idtexto):
         try:
-            id = int(request.data['id'])
+            id = idtexto
             texto = Texto.objects.get(id=id)
             return Response({'Status': True, 'Titulo': texto.titulo, 'Texto':texto.texto})
 

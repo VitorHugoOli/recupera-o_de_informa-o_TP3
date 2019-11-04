@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import api from '../../services/api'
 
 
 import search from '../../assets/search.png';
+
 
 export default function Search({history}){
     const [termo, setTermo] = useState('');
 
     async function handleSubmit(){
 
-        const result = await api.post('/search',{search:"belo"})
+        const result = await axios.post('http://127.0.0.1:8000/search',{"teste":"teste"})
 
         console.log(result)
 
