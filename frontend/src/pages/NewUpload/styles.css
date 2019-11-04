@@ -36,3 +36,11 @@ form.upload input{
   label#thumbnail img{
     height: 50px;
   }
+
+  label#thumbnail.has-file{
+      border: 0;
+  }
+
+  label#thumbnail.has-file img{
+      display: none;
+  }

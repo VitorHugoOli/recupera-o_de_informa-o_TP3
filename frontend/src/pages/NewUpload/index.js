@@ -3,9 +3,10 @@ import React, {useState, useMemo} from 'react';
 
 import './styles.css'
 import fileimg from '../../assets/file.png'
+import api from '../../services/api';
 
 
-export default function NewUpload(){
+export default function NewUpload({history}){
     const [title, setTitle] = useState('');
     const [file, setFile] = useState(null);
 
@@ -16,8 +17,20 @@ export default function NewUpload(){
         [file]
     )
 
-    function handleSubmit(){
+    async function handleSubmit(event){
+        event.preventDefault();
+        const data = new FormData();
+        
+        
+       
+        data.append('title,', title);
+        data.append('file,', file);
+        
+        console.log(title)
+        console.log(file)
+        await api.post('/uploadFile', data);
 
+        history.push('/')
     }
 
     return (
@@ -31,12 +44,16 @@ export default function NewUpload(){
                 value={title}
                 onChange={event => setTitle(event.target.value)}
             />
-            <label id="thumbnail">
+            <label 
+                id="thumbnail"
+                className={file ? 'has-file' : ''}
+            >
                 <input 
                     type="file" 
                     placeholder="Selecione um arquivo"
                     onChange={event => setFile(event.target.files[0])}
                 />
+                <strong>{file ? file.name : ''}</strong>
                 <img src={fileimg} alt="Selecione o arquivo"/>
             </label>
             
