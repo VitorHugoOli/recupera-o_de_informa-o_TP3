@@ -3,7 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('uploadFile', insertText.as_view(), name='uploadFile'),
-    path('search/<slug:search>',search.as_view(),name='search'),
+    path('search/<str:search>',search.as_view(),name='search'),
     path('texto/<int:idtexto>',texto.as_view(),name='getTexto')
 
 ]
