@@ -35,15 +35,16 @@ class search(Requisicao):
     def get(self, request,search):
         try:
             search = search
-            if search.find(" ") > 0:
-                print("multisearch")
-                group, relevance = index.multisearch(search)
-                return Response({'Status': True, 'group': group, "relevance": relevance})
-            else:
-                print("search")
-                relevance = index.search(search)
-                return Response({'Status': True, 'group': 'No multiSearch', "relevance": relevance})
-            return Respostas({"Status":"Algo do além está fazendo interferencias"})
+            # if search.find(" ") > 0:
+            print("multisearch")
+            group, relevance = index.multisearch(search)
+            return Response({'Status': True, 'group': group, "relevance": relevance})
+            # else:
+            #     print("search")
+            #     print(search)
+            #     relevance = index.search(search)
+            #     return Response({'Status': True, 'group': 'No multiSearch', "relevance": relevance})
+            # return Respostas({"Status":"Algo do além está fazendo interferencias"})
         except:
             return Response({'Status': False, 'Search': search,'Erro':str(sys.exc_info()[1])})
 
