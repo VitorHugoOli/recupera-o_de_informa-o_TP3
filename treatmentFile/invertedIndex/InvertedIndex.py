@@ -1,7 +1,10 @@
+import datetime
+
 import nltk
 import string
 
 from treatmentFile.models.models import Texto, indexInv, DictWord
+from django.core.exceptions import ObjectDoesNotExist
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -27,44 +30,46 @@ class InvertedIndex:
         # if doc not in self.raiz:
         if Texto.objects.filter(texto=doc).exists():
             print("Texto já foi inserido anteriomente")
-            return Exception.args("Texto já foi inserido anteriomente")
+            return False
         else:
             id = Texto.objects.create(texto=doc, titulo=title)
+            doc = doc +" "+ title.split(".")[0]
             self.parse(id.id, doc)
             return True
 
     def parse(self, idoc, doc):
         words = self.__preprocess__(doc, 'portuguese')
-        indexinvertido = indexInv.objects.filter()
-
+        # indexinvertido = indexInv.objects.filter()
         #Carregando lista de palavras já existentes no banco para otimização da função
-        wordsBD = []
-        for i in indexinvertido:
-            wordsBD.append(i.word)
-        print(wordsBD)
+        # wordsBD = []
+        # for i in indexinvertido:
+        #     wordsBD.append(i.word)
+        # print(wordsBD)
+
         print("Step 1 - Create dynamic wordBD")
+        print("Amounts of words: " + str(len(words)))
+        print(words)
+        print("------Start Time: " + str(datetime.datetime.now().time()))
 
         for w in words:
-
-            if w in wordsBD:
+            try:
                 indexinvertido = indexInv.objects.get(word=w)
 
-                if DictWord.objects.filter(indexInv=indexinvertido, idTexto=idoc).exists():
+                try:
                     dicionario = DictWord.objects.get(indexInv=indexinvertido, idTexto=idoc)
                     dicionario.repeticoes= dicionario.repeticoes + 1
                     dicionario.save()
 
-                else:
+                except ObjectDoesNotExist:
                     DictWord.objects.create(indexInv=indexinvertido, idTexto=idoc, repeticoes=1)
 
-            else:
+
+            except ObjectDoesNotExist:
                 index = indexInv.objects.create(word=w)
-                wordsBD.append(w)
                 DictWord.objects.create(indexInv=index, idTexto=idoc, repeticoes=1)
 
-        print("Step 2 - All words were inclued")
-
-
+        print("------End Time: " + str(datetime.datetime.now().time()))
+        print("\nStep 2 - All words were inclued")
 
     def search(self, word):
         # if word in self.indexInv:
