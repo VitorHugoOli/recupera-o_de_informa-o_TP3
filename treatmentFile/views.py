@@ -1,13 +1,17 @@
 import sys
 
 # Create your views here.
-
+from django.core.files.storage import FileSystemStorage
 
 from .invertedIndex.InvertedIndex import *
 from treatmentFile.leituraPDF.readPDF import pdf_to_txt
 from treatmentFile.models.models import Texto
 from .controlador.Requisicoes import *
 from .controlador.Respostas import *
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.forms import  *
+
 
 index = InvertedIndex()
 
@@ -58,3 +62,19 @@ class texto(Requisicao):
         except Exception:
             return Response(
                 {'Status': False, 'Erro':str(sys.exc_info()[1])})
+
+
+class file(Requisicao):
+    def post(self, request):
+        try:
+            myfile = request.FILES['file']
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
+            uploaded_file_url = fs.url(filename)
+            return Response({'Status': True, 'Titulo': uploaded_file_url})
+
+        except Exception:
+            return Response(
+
+                {'Status': False, 'Erro':str(sys.exc_info()[1])})
+
