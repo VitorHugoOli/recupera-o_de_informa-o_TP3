@@ -30,7 +30,7 @@ Pillow==6.2.1
 pluggy==0.13.0
 ply==3.11
 psycopg2==2.8.4
-py==1.8.0
+py==1.10.0
 pycryptodome==3.9.0
 pymongo==3.9.0
 pyparsing==2.4.2
